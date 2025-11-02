@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Input Form</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      h2 {
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      form {
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 30px 40px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+      }
+      input[type="text"] {
+        padding: 10px;
+        width: 280px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+        font-size: 16px;
+        margin-right: 10px;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #333;
+      }
+      button {
+        padding: 10px 16px;
+        background-color: #ff6b81;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      button:hover {
+        background-color: #ff4757;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Enter query</h2>
+    <form action="/" method="post">
+      <input
+        type="text"
+        name="user_input"
+        placeholder="Type something..."
+      />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
