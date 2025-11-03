@@ -79,7 +79,7 @@ def ppxtly_search(Query):
     #print(search.results)
     conn.commit()
 
-    return results.url
+    return results
 
 @app.get("/", response_class=HTMLResponse)
 async def get_form(request: Request):
@@ -88,10 +88,12 @@ async def get_form(request: Request):
 
 @app.post("/", response_class=HTMLResponse)
 async def handle_input(request: Request, user_input: str = Form(...)):
-    search = ppxtly_search(Query=user_input)
+    results = ppxtly_search(Query=user_input) #this function returns the 
+    search = results.url
+    snippet = results.snippet
     return templates.TemplateResponse(
         "response.html",
-        {"request": request, "search": search}
+        {"request": request, "search": search, "snippet": snippet}
         )
 
 
