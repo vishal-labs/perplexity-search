@@ -1,3 +1,4 @@
 .env
 venv/
+my-progress.md
 __pycache__/

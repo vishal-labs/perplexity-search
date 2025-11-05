@@ -7,7 +7,11 @@ Right now, the functionality are listed below
 - Returns any 1 or the URL to the frontend.
 - Adds the query along with the result to a database for future references. 
 
-
+### How to run?
+1. Get the perplexity API key from your account
+2. Add it to the  `.env` file with the name `PERPLEXITY_API_KEY`
+3. install the requirements by running the `pip install -r requirements.txt` file. 
+4. Run the application by using the command `fastapi dev main.py`
 
 ### Functionalities for future improvement
 1. Connect a database to this application so that, whenever a new query is asked, it get's logged in the database
