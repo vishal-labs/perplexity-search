@@ -2,3 +2,4 @@
 venv/
 my-progress.md
 __pycache__/
+endpoints.log

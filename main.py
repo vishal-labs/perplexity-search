@@ -9,13 +9,16 @@ from dotenv import load_dotenv
 from fastapi.templating import Jinja2Templates
 import mysql.connector
 from mysql.connector import errorcode
-
+from ML.modelPredicton import Modelprediction
 
 #creating the class instances
 load_dotenv()
 app = FastAPI()
 client = Perplexity()
 templates = Jinja2Templates(directory="templates")
+
+
+
 
 #logging into a created database
 db_user = os.getenv("DB_USERNAME")
@@ -80,6 +83,19 @@ def ppxtly_search(Query):
     conn.commit()
 
     return results
+
+#Get the endpoints from the URL. 
+@app.middleware("http")
+async def log_endpoints(request: Request, call_next):
+    # Append only the endpoint (path) to a text file
+    with open("endpoints.log", "a") as log_file:
+        log_file.write(f"{request.url.path}\n")
+        result = Modelprediction()
+        ans = result.predict(str(request.url.path))
+        print("The endpoint: "+ request.url.path+ " is classified to:" + str(ans))
+    response = await call_next(request)
+    return response
+
 
 @app.get("/", response_class=HTMLResponse)
 async def get_form(request: Request):
