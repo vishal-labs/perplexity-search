@@ -6,9 +6,15 @@ Right now, the functionality are listed below
 - Uses Perplexity Search API to get the most relevant URLs for the query
 - Returns any 1 or the URL to the frontend.
 - Adds the query along with the result to a database for future references.
-- Whenever an API endpoint is accessed, the endpoint string is verified throught a ML model and based on the prediction, the endpoint is secured with the power of eBPF
+- Whenever an API endpoint is accessed, the endpoint string is verified throught a ML model and based on the prediction, the endpoint is secured with the power of eBPF.
 Ex: We know that the general, regular endpoints look like `/home, /api/users ...` 
 but we also know that endpoints like `/SELECT+*+FROM+USERS;` or such are `SQLi` type attacks.
+
+### How does the ML part work?
+- The endpoint is passed to a trained Forestclassifer ML model that was collected from the  [source](https://colab.research.google.com/drive/1qut38bFp018Xba1OHMnX79PUC19PML0e#scrollTo=3vy2egEdwkqZ)
+- This model works on different parameters like, the length, special characters, keywords, regex for extraction of parameters from the personalised URL. 
+- Based on these extracted parameters, the model makes a prediction and that result is used to redirect the user.
+
 
 
 ### How to run?
