@@ -7,8 +7,8 @@ Right now, the functionality are listed below
 - Returns any 1 or the URL to the frontend.
 - Adds the query along with the result to a database for future references.
 - Whenever an API endpoint is accessed, the endpoint string is verified throught a ML model and based on the prediction, the endpoint is secured with the power of eBPF
-Ex: We know that the general, regular endpoints look like /home, /api/users ... 
-but we also know that endpoints like /SELECT+*+FROM+USERS; or such are SQLi type attacks.
+Ex: We know that the general, regular endpoints look like `/home, /api/users ...` 
+but we also know that endpoints like `/SELECT+*+FROM+USERS;` or such are `SQLi` type attacks.
 
 
 ### How to run?
