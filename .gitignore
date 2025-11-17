@@ -1,5 +1,6 @@
 .env
 venv/
+.DS_Store
 my-progress.md
 __pycache__/
 endpoints.log

@@ -1,9 +1,11 @@
 import re
+import random
 class features:
     def analyze_string(self, s):
         counts = []
         # Data
-        counts.append(1)
+        value = random.randint(0, 1)
+        counts.append(value)
         # Singlequotes
         counts.append(s.count("'"))
         # Doublequotes

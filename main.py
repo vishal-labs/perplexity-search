@@ -93,6 +93,21 @@ async def log_endpoints(request: Request, call_next):
         result = Modelprediction()
         ans = result.predict(str(request.url.path))
         print("The endpoint: "+ request.url.path+ " is classified to:" + str(ans))
+    
+    if ans == 1:  
+        html_content = f"""
+        <html>
+            <head><title>Prediction</title></head>
+            <body>
+                <h1>Classification Result</h1>
+                <p>The endpoint <strong>{request.url.path}</strong> is classified as:
+                <strong>{ans}</strong></p>
+            </body>
+        </html>
+        """
+        return HTMLResponse(content=html_content, status_code=200)   
+    
+    
     response = await call_next(request)
     return response
 
