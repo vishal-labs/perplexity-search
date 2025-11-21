@@ -22,11 +22,12 @@ templates = Jinja2Templates(directory="templates")
 
 #logging into a created database
 db_user = os.getenv("DB_USERNAME")
-db_user_pass = os.getenv("DB_PASS")
+db_user_pass = os.getenv("DB_PASSWORD")
 db_name = os.getenv("DB_NAME")
+host = os.getenv("HOST")
 try:
     conn = mysql.connector.connect(
-    host="127.0.0.1",
+    host=host,
     user=db_user,
     password=db_user_pass,
     database=db_name

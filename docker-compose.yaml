@@ -1,0 +1,28 @@
+services:
+  app:
+    image: ppxlty-search:v3
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      HOST: db
+    ports:
+      - "8000:8000"
+
+  db:
+    image: mysql:latest
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+
