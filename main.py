@@ -10,6 +10,7 @@ from fastapi.templating import Jinja2Templates
 import mysql.connector
 from mysql.connector import errorcode
 from ML.modelPredicton import Modelprediction
+from fastapi.responses import RedirectResponse
 
 #creating the class instances
 load_dotenv()
@@ -106,7 +107,9 @@ async def log_endpoints(request: Request, call_next):
             </body>
         </html>
         """
-        return HTMLResponse(content=html_content, status_code=200)   
+        print("classifed as restricted")
+        return RedirectResponse(request.url.path)
+
     
     
     response = await call_next(request)
