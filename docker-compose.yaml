@@ -1,6 +1,6 @@
 services:
   app:
-    image: ppxlty-search:v3
+    image: vishaldodda/simple-search:latest
     depends_on:
       db:
         condition: service_healthy
