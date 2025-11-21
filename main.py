@@ -109,9 +109,7 @@ async def log_endpoints(request: Request, call_next):
         """
         print("classifed as restricted")
         return RedirectResponse(request.url.path)
-
-    
-    
+        
     response = await call_next(request)
     return response
 
