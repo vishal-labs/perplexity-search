@@ -1,44 +1,54 @@
 ### Introduction
+
 This is a project that I keep on developing as i learn more of API and AI.
 
 Right now, the functionality are listed below
+
 - When run, this application takes in the user query
 - Uses Perplexity Search API to get the most relevant URLs for the query
 - Returns any 1 or the URL to the frontend.
 - Adds the query along with the result to a database for future references.
 - Whenever an API endpoint is accessed, the endpoint string is verified throught a ML model and based on the prediction, the endpoint is secured with the power of eBPF.
-Ex: We know that the general, regular endpoints look like `/home, /api/users ...` 
-but we also know that endpoints like `/SELECT+*+FROM+USERS;` or such are `SQLi` type attacks.
+  Ex: We know that the general, regular endpoints look like `/home, /api/users ...`
+  but we also know that endpoints like `/SELECT+*+FROM+USERS;` or such are `SQLi` type attacks.
 
 ### How does the ML part work?
-- The endpoint is passed to a trained Forestclassifer ML model that was collected from the  [source](https://colab.research.google.com/drive/1qut38bFp018Xba1OHMnX79PUC19PML0e#scrollTo=3vy2egEdwkqZ)
-- This model works on different parameters like, the length, special characters, keywords, regex for extraction of parameters from the personalised URL. 
+
+- The endpoint is passed to a trained Forestclassifer ML model that was collected from the [source](https://colab.research.google.com/drive/1qut38bFp018Xba1OHMnX79PUC19PML0e#scrollTo=3vy2egEdwkqZ)
+- This model works on different parameters like, the length, special characters, keywords, regex for extraction of parameters from the personalised URL.
 - Based on these extracted parameters, the model makes a prediction and that result is used to redirect the user.
 
+### How to run it?
 
+#### The easy way:
 
-### How to run?
+- Make sure that you have docker installed on your system, once that's done
+- Just copy the `docker-compose.yaml` file to your local directory
+- Check the `.env.sample` file for the format of input env variables
+- Make sure that both the `.env` file and the `compose` file are in the same directory
+- start the application using the `docker compose up -d` command
+- You can go to the URL `0.0.0.0:8000` to check the application and the logs are visible in the container logs
+
+#### The generic way:
+
 1. Get the perplexity API key from your account
-2. Add it to the  `.env` file with the name `PERPLEXITY_API_KEY`
-3. install the requirements by running the `pip install -r requirements.txt` file. 
+2. Add it to the `.env` file with the name `PERPLEXITY_API_KEY`
+3. install the requirements by running the `pip install -r requirements.txt` file.
 4. Run the application by using the command `fastapi dev main.py`
 
 ### Functionalities for future improvement
+
 1. Because the DB is connected, we could make the frontend functionally beautiful like adding more endpoints where history can be seen(whatever was stored in the DB)
 2. Run this entire setup on kubernetes by creating different pods and services to that pods(this will help my understanding of kubernetes services)
-3. create user logins for retrieving past queries for that user. 
-
+3. create user logins for retrieving past queries for that user.
 
 ### Example showcase
-1. Query input:
-<img width="1216" height="779" alt="image" src="https://github.com/user-attachments/assets/74029e09-cda0-4369-9327-b7a4b7dcaad7" />
 
+1. Query input:
+   <img width="1216" height="779" alt="image" src="https://github.com/user-attachments/assets/74029e09-cda0-4369-9327-b7a4b7dcaad7" />
 
 2. Result:
-<img width="1610" height="1085" alt="image" src="https://github.com/user-attachments/assets/91df1989-9222-4391-bb31-182e80258e7e" />
-
-
+   <img width="1610" height="1085" alt="image" src="https://github.com/user-attachments/assets/91df1989-9222-4391-bb31-182e80258e7e" />
 
 3. Database(need to make it pretty)
-<img width="1112" height="622" alt="image" src="https://github.com/user-attachments/assets/d2406633-81f8-4992-9c7f-a5dd24af68cf" />
-
+   <img width="1112" height="622" alt="image" src="https://github.com/user-attachments/assets/d2406633-81f8-4992-9c7f-a5dd24af68cf" />
