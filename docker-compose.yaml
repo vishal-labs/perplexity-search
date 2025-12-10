@@ -10,6 +10,13 @@ services:
       HOST: db
     ports:
       - "8000:8000"
+  frontend:
+    build: ./simple-search-frontend
+    image: vishaldodda/simple-search-frontend:latest
+    ports:
+      - "5173:80"
+    depends_on:
+      - app
   db:
     image: mysql:latest
     env_file:
