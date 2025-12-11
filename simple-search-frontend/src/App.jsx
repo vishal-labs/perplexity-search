@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import SearchInput from "./components/SearchInput";
 import ResultCard from "./components/ResultCard";
 import HistoryDrawer from "./components/HistoryDrawer";
+import StatusIndicator from "./components/StatusIndicator";
+import config from "./config";
 import "./App.css";
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
 
   const fetchHistory = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/history/");
+      const res = await fetch(`${config.API_BASE_URL}/api/history/`);
       const json = await res.json();
       setHistory(json.data || []);
     } catch (err) {
@@ -36,7 +38,7 @@ function App() {
     setCurrentResult(null);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/search", {
+      const res = await fetch(`${config.API_BASE_URL}/api/search`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
@@ -60,7 +62,7 @@ function App() {
 
   const handleDeleteHistory = async (id) => {
     try {
-      await fetch(`http://127.0.0.1:8000/api/history/${id}`, { method: "DELETE" });
+      await fetch(`${config.API_BASE_URL}/api/history/${id}`, { method: "DELETE" });
       setHistory(history.filter(item => item.id !== id));
     } catch (err) {
       console.error("Failed to delete item:", err);
@@ -69,7 +71,7 @@ function App() {
 
   const handleClearHistory = async () => {
     try {
-      await fetch("http://127.0.0.1:8000/api/history", { method: "DELETE" });
+      await fetch(`${config.API_BASE_URL}/api/history`, { method: "DELETE" });
       setHistory([]);
     } catch (err) {
       console.error("Failed to clear history:", err);
@@ -98,7 +100,8 @@ function App() {
           </button>
           <span className="brand" onClick={handleNewChat}>Simple Search</span>
         </div>
-        <div className="nav-right">
+        <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <StatusIndicator />
           {hasSearched && (
             <button onClick={handleNewChat} className="new-chat-btn">
               <Plus size={16} />

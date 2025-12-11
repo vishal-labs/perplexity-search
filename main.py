@@ -235,3 +235,23 @@ def clear_history():
         conn.close()
     return {"status": "success", "message": "History cleared"}
 
+
+@app.get("/api/health")
+def health_check():
+    health_status = {"status": "online", "db_status": "disconnected"}
+    
+    try:
+        conn = get_db_connection()
+        if conn and conn.is_connected():
+            cursor = conn.cursor()
+            cursor.execute("SELECT 1")
+            cursor.fetchone()
+            health_status["db_status"] = "connected"
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        print(f"Health check DB error: {e}")
+        health_status["db_error"] = str(e)
+        
+    return health_status
+
